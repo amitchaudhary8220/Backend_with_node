@@ -1,0 +1,5 @@
+Streams --> used to handle stream data, data coming from a source 
+writeable --> used to write data sequecensly ,
+ readable--> used to read data sequecensly, 
+ duplex --> used to read and write both , 
+ transform 
