@@ -1,28 +1,45 @@
-const EventEmitter= require('events');
+//code to craete large file
 
-//we must register event first (listen event first ) ,then emit it , other wise listening funtion will not execute
+// const fs=require('fs');
 
-//EventEmitter is constructor function 
+// for(let i=0;i<10000;i++){
+//     fs.writeFileSync('./content/large-data.txt',
+//     `Hello world this file is very large ${i} \n`,{flag:'a'});
+// }
 
-//forming the object of EventEmitter class
-
-const customEmitter=new EventEmitter();
 
 
-//  on method of the customEmitter object to register an event listener for the 'response' event. The listener is a callback function that will be executed when the event is emitted.
-customEmitter.on('response',(name,age)=>{
-    console.log(`Successfully got the reponse name :${name} and age:${age}`);
+//default size is 64kb
+//to increase or decrease size , provide , {highWaterMark=90000} --> 90 kb
+//
+const { createReadStream } = require("fs");
+const http=require('http');
+
+
+//normal example 
+// const stream = createReadStream("./content/large-data.txt",{highWaterMark:500,encoding:'utf8'});
+
+// stream.on("data", (result) => {
+//   console.log(result);
+// });
+
+// stream.on('error',(error)=>{
+//     console.log(error);
+// })
+
+
+//http examl
+const server=http.createServer((req,res)=>{
+    const stream=createReadStream('./content/large-data.txt');
+
+    stream.on('open',()=>{
+        //pipe pushes data from read stream to write stream in chunks 
+      stream.pipe(res);
+    })
+    stream.on('error',(error)=>{
+console.log(error);
+    })
 });
 
-customEmitter.on('response',(name)=>{
-    console.log(`concurrntly listening to various events ${name}`);
-})
+server.listen(5000);    
 
-
-//emitting the event
-
-// customEmitter.emit('response');
-
-//we can also pass arguments in emit 
-
-customEmitter.emit('response','amit',22);
