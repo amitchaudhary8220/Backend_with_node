@@ -6,25 +6,25 @@ const { error } = require("console");
 const { readFile, writeFile } = require("fs").promises;
 
 const done = async () => {
-    try{
-        const first = await readFile("./content/first.txt", "utf-8");
-        const sec = await readFile("./content/second.txt", "utf8");
-      
-        writeFile(
-          "./content/writing-using-direct-promise.txt",
-          `Oooh This is amazing ,see ${first} , ${sec}`,
-          { flag: "a" }
-        );
-      
-        console.log("first and sec ", first, sec);
-    }catch(error){
-        console.log(error);
-    }
+  try {
+    const first = await readFile("./content/first.txt", "utf-8");
+    const sec = await readFile("./content/second.txt", "utf8");
+
+    writeFile(
+      "./content/writing-using-direct-promise.txt",
+      `Oooh This is amazing ,see ${first} , ${sec}`,
+      { flag: "a" }
+    );
+
+    console.log("first and sec ", first, sec);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 done();
 
-//we can use another apporach of doing the below thing
+//we can use another apporach of doing the above thing
 
 // const util= require('util');
 
