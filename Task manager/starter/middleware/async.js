@@ -5,7 +5,7 @@ const asyncMiddleWare = (fn) => {
       await fn(req, res);
     } catch (error) {
       console.log("enter in catch block", error);
-      next(error);
+      next(error);  //this is standard way of calling the error handler middleware , if we don't pass error inside next  , it will simply call the next middleware 
     }
   };
 };
